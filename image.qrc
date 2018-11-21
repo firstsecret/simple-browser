@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>image/tiantianremai.ico</file>
+        <file>image/posbrowser.png</file>
+    </qresource>
+</RCC>
