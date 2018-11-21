@@ -27,10 +27,12 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+    webview.cpp
 
 HEADERS += \
-        mainwindow.h
+        mainwindow.h \
+    webview.h
 
 FORMS += \
         mainwindow.ui

@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include <QSettings>
 #include <QDebug>
+#include <QWebEngineSettings>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -14,8 +15,12 @@ MainWindow::MainWindow(QWidget *parent) :
     QString request_url = settings.value("request_url").toString();
     this->setWindowIcon(QIcon(":/image/posbrowser.png"));
 
-    view = new QWebEngineView(this);
-//    connect(view,SIGNAL(sig_iconChanged(QPixmap)),this,SLOT(slt_iconChanged(QPixmap)));
+//    view = new QWebEngineView(this);
+    view = new WebView(this);
+
+    view->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
+//    connect(view, SIGNAL(urlChanged(QUrl)),
+//            this, SLOT(onUrlChanged(QUrl)));
     view->load(QUrl(request_url));
     view->show();
 }
@@ -37,7 +42,7 @@ void MainWindow::handleMessage(const QString &topic)
 //    qDebug() << topic;
     if(request_url != topic){
 //        view = new QWebEngineView(this);
-    //    connect(view,SIGNAL(sig_iconChanged(QPixmap)),this,SLOT(slt_iconChanged(QPixmap)));
+//        connect(view,SIGNAL(urlChanged(QPixmap)),this,SLOT(slt_iconChanged(QPixmap)));
         view->load(QUrl(topic));
         view->show();
     }

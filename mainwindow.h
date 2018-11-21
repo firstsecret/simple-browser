@@ -2,7 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QWebEngineView>
+#include <webview.h>
 
 namespace Ui {
 class MainWindow;
@@ -19,7 +19,7 @@ protected:
     void resizeEvent(QResizeEvent *);
 private:
     Ui::MainWindow *ui;
-    QWebEngineView* view;
+    WebView* view;
 private slots:
     void handleMessage(const QString &topic);
 };
