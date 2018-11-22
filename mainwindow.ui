@@ -15,28 +15,80 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="0" column="1">
-     <widget class="QPushButton" name="btnGo">
-      <property name="text">
-       <string>前进</string>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0">
      <widget class="QPushButton" name="btnBack">
+      <property name="minimumSize">
+       <size>
+        <width>30</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 57 11pt &quot;Ubuntu&quot;;</string>
+      </property>
       <property name="text">
        <string>返回</string>
       </property>
      </widget>
     </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="btnGo">
+      <property name="minimumSize">
+       <size>
+        <width>30</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>前进</string>
+      </property>
+     </widget>
+    </item>
     <item row="0" column="2">
      <widget class="QPushButton" name="btnRefresh">
+      <property name="minimumSize">
+       <size>
+        <width>30</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>50</width>
+        <height>16777215</height>
+       </size>
+      </property>
       <property name="text">
        <string>刷新</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="0" colspan="3">
+    <item row="0" column="3">
+     <widget class="QPushButton" name="pushButton">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="text">
+       <string>欢迎使用PosBrowser!!!</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="autoFillBackground">
        <bool>false</bool>
