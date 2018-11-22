@@ -11,13 +11,16 @@ WebView::WebView(QWidget *parent) : QWebEngineView(parent){
 QWebEngineView *WebView::createWindow(QWebEnginePage::WebWindowType)
 {
 //    Q_UNUSED(type)
-    qDebug() << "初始化浏览器";
-    WebView *pp = new WebView(this);
+//    qDebug() << "初始化浏览器";
+    WebView* pp = new WebView(this);
+    // 新的页面需要 监听
+
 //    pp->resize(this->size());
 //    pp->show();
 //    qDebug() << pp->url();
 //    this->sendWebViewUpdate();
     // 触
+//    qDebug() << "触发新页面";
     emit WebViewUpdateSignal(pp);
 //    return pp;
     return NULL;
@@ -32,7 +35,8 @@ void sendWebViewUpdate(WebView*)
 void WebView::linkHovered(const QString &url)
 {
     new_web_view_url = url;
-//    qDebug() << "link url:" + url;
+//    qDebug() << "link url dddd:";
+    qDebug() << url;
 }
 
 void WebView::titleChanged(const QString &title)
@@ -46,7 +50,7 @@ void WebView::sltTitleChange(const QString &title)
 //    ui->frame;
     tab_widget_obj->setTabText(this->tab_index,title);
 //    qDebug() << this->tab_index;
-    QString windowTitle = title;
+//    QString windowTitle = title;
 //    this->setWindowTitle(windowTitle);
     // 将对应的tab title 设置
 //    qDebug() << "webview 事件出发";

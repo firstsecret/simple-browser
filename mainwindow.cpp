@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     view = new WebView(this);
     // 浏览器tab 新增事件
     connect(view, SIGNAL(WebViewUpdateSignal(WebView*)),this,SLOT(webViewCustomAddTabSlot(WebView*)));
+
     tab_widget_obj = ui->tabWidget;
 //    qDebug() << "window朱汉书";
 //    view->settings()->setAttribute(QWebEngineSettings::PluginsEnabled, true);
@@ -95,8 +96,18 @@ void MainWindow::handleMessage(const QString &topic)
     if(request_url != topic){
 //        view = new QWebEngineView(this);
 //        connect(view,SIGNAL(urlChanged(QPixmap)),this,SLOT(slt_iconChanged(QPixmap)));
+        // 新增一个view
+        view = new WebView(this);
+
         view->load(QUrl(topic));
+        int get_index = ui->tabWidget->addTab(view,topic);
+        view->tab_index = get_index;
         view->show();
+
+        connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
+
+        tab_web_view_map.insert(get_index, view);
+        ui->tabWidget->setCurrentIndex(get_index);
     }
 }
 
@@ -109,12 +120,12 @@ void MainWindow::webViewCustomAddTabSlot(WebView* view)
     int get_index = ui->tabWidget->addTab(view,new_web_view_url);
     view->tab_index = get_index;
     view->show();
-//    connect(view, SIGNAL())
     connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
+    connect(view, SIGNAL(WebViewUpdateSignal(WebView*)),this,SLOT(webViewCustomAddTabSlot(WebView*)));
     tab_web_view_map.insert(get_index, view);
 //    qDebug() << get_index + 1;
     ui->tabWidget->setCurrentIndex(get_index);
-//    qDebug() << "出发自定义信号";
+    qDebug() << "出发自定义信号";
 //    qDebug() << view;
 }
 
