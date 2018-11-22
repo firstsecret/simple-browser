@@ -36,7 +36,7 @@ void WebView::linkHovered(const QString &url)
 {
     new_web_view_url = url;
 //    qDebug() << "link url dddd:";
-    qDebug() << url;
+//    qDebug() << url;
 }
 
 void WebView::titleChanged(const QString &title)

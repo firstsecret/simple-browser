@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-
+    this->setWindowTitle("PosBrowser");
     QSettings settings;
 //    qDebug() << "get:" + settings.value("request_url").toString();
     QString request_url = settings.value("request_url").toString();
@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     tab_web_view_map.insert(0, view);
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabWidgetClose(int))); // tab 关闭事件
     connect(ui->tabWidget, SIGNAL(currentChanged(int)),this, SLOT(onCurrentChanged(int))); // tab 改变事件
+
 //    connect(view->page(),&QWebEnginePage::linkHovered, this, &WebView::linkHovered));
 }
 
@@ -73,6 +74,9 @@ void MainWindow::onLinkHovered(QString url)
 void MainWindow::onTabWidgetClose(int index)
 {
     ui->tabWidget->removeTab(index);
+    // 内存释放
+    delete tab_web_view_map.value(index);
+    tab_web_view_map.remove(index);
 //    qDebug() << "get index:" + index;
 }
 
@@ -125,7 +129,7 @@ void MainWindow::webViewCustomAddTabSlot(WebView* view)
     tab_web_view_map.insert(get_index, view);
 //    qDebug() << get_index + 1;
     ui->tabWidget->setCurrentIndex(get_index);
-    qDebug() << "出发自定义信号";
+//    qDebug() << "出发自定义信号";
 //    qDebug() << view;
 }
 
