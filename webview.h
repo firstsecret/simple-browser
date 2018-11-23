@@ -8,6 +8,7 @@ class WebView: public QWebEngineView{
 public:
     explicit WebView(QWidget *parent = nullptr);
     int tab_index;
+    QUrl now_url;
 public slots:
     void linkHovered(const QString &url);
     void titleChanged(const QString &title);

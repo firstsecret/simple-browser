@@ -82,7 +82,7 @@ void MainWindow::onTabWidgetClose(int index)
 
 void MainWindow::onUrlChanged(QUrl url)
 {
-//    qDebug() << "url change";
+//     qDebug() << "url change";
 //     qDebug() << url;
      QUrl new_web_view_url = url;
 }
@@ -117,10 +117,6 @@ void MainWindow::handleMessage(const QString &topic)
 
 void MainWindow::webViewCustomAddTabSlot(WebView* view)
 {
-//    QUrl request_url = *new_web_view_url;
-//    qDebug() << new_web_view_url;
-//    qDebug() << view->url();
-    view->load(QUrl(new_web_view_url));
     int get_index = ui->tabWidget->addTab(view,new_web_view_url);
     view->tab_index = get_index;
     view->show();
@@ -130,7 +126,6 @@ void MainWindow::webViewCustomAddTabSlot(WebView* view)
 //    qDebug() << get_index + 1;
     ui->tabWidget->setCurrentIndex(get_index);
 //    qDebug() << "出发自定义信号";
-//    qDebug() << view;
 }
 
 void MainWindow::on_btnGo_clicked()

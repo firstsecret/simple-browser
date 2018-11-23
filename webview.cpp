@@ -6,15 +6,20 @@
 WebView::WebView(QWidget *parent) : QWebEngineView(parent){
     connect(this->page(),&QWebEnginePage::linkHovered,this,&WebView::linkHovered); // 页面的a link
     connect(this->page(),&QWebEnginePage::titleChanged, this, &WebView::titleChanged); // 页面标题 改变事件
+//    qDebug() << "页面槽功能";
 }
 
 QWebEngineView *WebView::createWindow(QWebEnginePage::WebWindowType)
 {
 //    Q_UNUSED(type)
 //    qDebug() << "初始化浏览器";
+    if(now_url.isEmpty()){
+        return 0;
+    }
     WebView* pp = new WebView(this);
     // 新的页面需要 监听
-
+    pp->load(now_url);
+    now_url = "";
 //    pp->resize(this->size());
 //    pp->show();
 //    qDebug() << pp->url();
@@ -23,7 +28,7 @@ QWebEngineView *WebView::createWindow(QWebEnginePage::WebWindowType)
 //    qDebug() << "触发新页面";
     emit WebViewUpdateSignal(pp);
 //    return pp;
-    return NULL;
+    return 0;
 //    return this;
 }
 
@@ -34,13 +39,19 @@ void sendWebViewUpdate(WebView*)
 
 void WebView::linkHovered(const QString &url)
 {
-    new_web_view_url = url;
+
+    if(!url.isEmpty()){
+        new_web_view_url = url;
+        now_url=url;
+    }
+
 //    qDebug() << "link url dddd:";
 //    qDebug() << url;
 }
 
 void WebView::titleChanged(const QString &title)
 {
+
     new_web_view_title = title;
 //    qDebug() << "get page title:" + title;
 }
