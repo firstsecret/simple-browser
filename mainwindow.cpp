@@ -145,15 +145,6 @@ void MainWindow::on_btnGo_clicked()
     view->forward();
 }
 
-void MainWindow::on_btnBack_clicked()
-{
-    int tab_index = ui->tabWidget->currentIndex();
-//    qDebug() << "返回";
-    view = tab_web_view_map.value(tab_index);
-
-    view->back();
-}
-
 void MainWindow::on_btnRefresh_clicked()
 {
     int tab_index = ui->tabWidget->currentIndex();
@@ -161,4 +152,13 @@ void MainWindow::on_btnRefresh_clicked()
     view = tab_web_view_map.value(tab_index);
 //    qDebug() << "刷新";
      view->reload();
+}
+
+void MainWindow::on_btnBack_clicked()
+{
+    int tab_index = ui->tabWidget->currentIndex();
+//    qDebug() << "返回";
+    view = tab_web_view_map.value(tab_index);
+
+    view->back();
 }

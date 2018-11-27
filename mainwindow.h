@@ -37,12 +37,14 @@ private:
 private slots:
     void handleMessage(const QString &topic); // 外部url改变事件
     void on_btnGo_clicked();  // 浏览器 前进事件
-    void on_btnBack_clicked(); // 浏览器 返回事件
     void on_btnRefresh_clicked();  // 浏览器 刷新事件
     void onUrlChanged(QUrl); // 一级url改变事件
     void onLinkHovered(QString); // 一级url 点击事件 (无效)
     void onTabWidgetClose(int); // tab 关闭事件
     void onCurrentChanged(int); // tab change事件
+
+    void on_btnBack_clicked(); // 浏览器 返回事件
+
 public slots:
     void webViewCustomAddTabSlot(WebView*);
 };
