@@ -15,7 +15,7 @@ int main(int argc, char *argv[])
     QString request_url = "https://cy.tiantianremai.cn/web/index.php?c=index&a=login";
     //&& (request_url.left(5) == "http:" || request_url.left(6) == "https:")
     if (argc >= 2){
-        QString tmp_request_url = argv[argc - 1];
+        QString tmp_request_url = argv[1]; // fixed position
         if(tmp_request_url.left(5) == "http:" || tmp_request_url.left(6) == "https:"){
             request_url = tmp_request_url;
         }
