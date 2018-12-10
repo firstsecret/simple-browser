@@ -5,6 +5,7 @@
 #include <QSettings>
 #include <QtSingleApplication>
 
+
 int main(int argc, char *argv[])
 {
     //
@@ -38,5 +39,7 @@ int main(int argc, char *argv[])
     a.setActivationWindow(&w);
     QObject::connect(&a, SIGNAL(messageReceived(const QString&)),&w, SLOT(handleMessage(const QString&)));
     w.showMaximized();
+
+//    w.showFullScreen();
     return a.exec();
 }

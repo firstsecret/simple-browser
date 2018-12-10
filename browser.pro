@@ -48,3 +48,5 @@ RESOURCES += \
 QMAKE_POST_LINK += cp -rf $$PWD/qtsingleapplication/ $$OUT_PWD/
 
 include($$PWD/qtsingleapplication/src/qtsingleapplication.pri)
+include($$PWD/qxtglobalshortcut5/qxt.pri)
+

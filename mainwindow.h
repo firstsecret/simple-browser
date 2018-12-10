@@ -7,7 +7,7 @@
 #include <QLabel>
 #include <QTabWidget>
 #include <QMap>
-
+#include "qxtglobalshortcut.h"
 
 //extern WebView *web_view;
 //extern QTabWidget *web_tab_views;

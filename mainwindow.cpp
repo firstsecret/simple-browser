@@ -5,6 +5,7 @@
 #include <QWebEngineSettings>
 #include <QStackedLayout>
 
+
 //WebView *web_view; // 浏览器当前页面
 //QTabWidget *web_tab_views; // 浏览器当前所有的页面
 QString new_web_view_url; // 新页面的url
@@ -43,12 +44,36 @@ MainWindow::MainWindow(QWidget *parent) :
     view->tab_index = 0;
 //    qDebug() << view->url();
     ui->tabWidget->addTab(view,request_url);
+    // default fullscreen
+    ui->tabWidget->setWindowFlags (Qt::Window);
+    ui->tabWidget->showFullScreen ();
+
     connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
     connect(view, SIGNAL(urlChanged(QUrl)),this, SLOT(onUrlChanged(QUrl)));  // 浏览器页面一级url change 事件
 
     tab_web_view_map.insert(0, view);
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabWidgetClose(int))); // tab 关闭事件
     connect(ui->tabWidget, SIGNAL(currentChanged(int)),this, SLOT(onCurrentChanged(int))); // tab 改变事件
+
+    // hot key
+    QxtGlobalShortcut *shortcut = new QxtGlobalShortcut(this);
+    if(shortcut->setShortcut(QKeySequence("Ctrl+q")))
+    {
+       connect(shortcut, &QxtGlobalShortcut::activated,
+           [=]() {
+           if (ui->tabWidget->isFullScreen()){
+               ui->tabWidget->setWindowFlags (Qt::SubWindow);
+               ui->tabWidget->showNormal ();
+           } else {
+               ui->tabWidget->setWindowFlags (Qt::Window);
+               ui->tabWidget->showFullScreen ();
+           }
+       });
+    }
+    else
+    {
+        qDebug()<<"快捷键已占用";
+    }
 
 //    connect(view->page(),&QWebEnginePage::linkHovered, this, &WebView::linkHovered));
 }
@@ -107,6 +132,7 @@ void MainWindow::handleMessage(const QString &topic)
         int get_index = ui->tabWidget->addTab(view,topic);
         view->tab_index = get_index;
         view->show();
+//        view->showFullScreen();
 
         connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
 
