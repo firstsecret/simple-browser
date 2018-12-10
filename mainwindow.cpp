@@ -5,7 +5,6 @@
 #include <QWebEngineSettings>
 #include <QStackedLayout>
 
-
 //WebView *web_view; // 浏览器当前页面
 //QTabWidget *web_tab_views; // 浏览器当前所有的页面
 QString new_web_view_url; // 新页面的url
@@ -47,6 +46,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // default fullscreen
     ui->tabWidget->setWindowFlags (Qt::Window);
     ui->tabWidget->showFullScreen ();
+//    ui->tabWidget->setWindowFlags(Qt::FramelessWindowHint);//无边框
+    this->setCentralWidget(ui->tabWidget);
+//    ui->tabWidget->resize(this->size());
+//    ui->tabWidget->setContentsMargins(0,0,0,0);
 
     connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
     connect(view, SIGNAL(urlChanged(QUrl)),this, SLOT(onUrlChanged(QUrl)));  // 浏览器页面一级url change 事件
@@ -57,7 +60,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // hot key
     QxtGlobalShortcut *shortcut = new QxtGlobalShortcut(this);
-    if(shortcut->setShortcut(QKeySequence("Ctrl+q")))
+    if(shortcut->setShortcut(QKeySequence("Alt+q")))
     {
        connect(shortcut, &QxtGlobalShortcut::activated,
            [=]() {
