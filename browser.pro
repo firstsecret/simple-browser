@@ -28,11 +28,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    webview.cpp
+    webview.cpp \
+    maskwidget.cpp
 
 HEADERS += \
         mainwindow.h \
-    webview.h
+    webview.h \
+    maskwidget.h
 
 FORMS += \
         mainwindow.ui

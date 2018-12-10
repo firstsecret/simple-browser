@@ -8,6 +8,9 @@
 #include <QTabWidget>
 #include <QMap>
 #include "qxtglobalshortcut.h"
+#include "maskwidget.h"
+#include <QDesktopWidget>
+#include <QMouseEvent>
 
 //extern WebView *web_view;
 //extern QTabWidget *web_tab_views;
@@ -31,6 +34,7 @@ public:
     ~MainWindow();
 protected:
     void resizeEvent(QResizeEvent *);
+    void mousePressEvent(QMouseEvent *e);
 private:
     Ui::MainWindow *ui;
     WebView* view;

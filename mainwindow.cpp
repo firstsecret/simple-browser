@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
+
     ui->setupUi(this);
     this->setWindowTitle("PosBrowser");
     QSettings settings;
@@ -78,6 +79,25 @@ MainWindow::MainWindow(QWidget *parent) :
         qDebug()<<"快捷键已占用";
     }
 
+    QDesktopWidget* desktopWidget = QApplication::desktop();
+    QRect clientRect = desktopWidget->availableGeometry();    //用户可用窗口大小
+//    QRect applicationRect = desktopWidget->screenGeometry();  //应用程序可用窗口大小
+//    qDebug() << clientRect;
+//    qDebug() << applicationRect;
+
+    //! 添加遮罩
+    CMaskWidget* maskWidget = CMaskWidget::GetInstance();
+    maskWidget->setParent(this);
+//    qDebug() << this->geometry();
+//    maskWidget->SetMainWidget(this);
+    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 64,  clientRect.width(), 64));
+    maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
+
+    this->setMouseTracking (true);
+
+//    QLabel *per1 = new QLabel("Ready1", this);
+//    this->statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
+//    this->statusBar()->addPermanentWidget(per1); //现实永久信息
 //    connect(view->page(),&QWebEnginePage::linkHovered, this, &WebView::linkHovered));
 }
 
@@ -85,6 +105,33 @@ MainWindow::~MainWindow()
 {
     delete ui;
 }
+
+
+void MainWindow::mousePressEvent(QMouseEvent *e)
+{
+
+    QString str = "(" + QString::number (e->x ()) + ", " + QString::number (e->y ()) + ")";
+
+    if(e->button () == Qt::LeftButton)
+    {
+        this->on_btnBack_clicked();
+        qDebug() << str;
+    }
+    else if(e->button () == Qt::RightButton)
+    {
+
+
+
+    }
+    else if(e->button () == Qt::MidButton)
+    {
+
+
+    }
+
+}
+
+
 
 void MainWindow::onCurrentChanged(int index)
 {
@@ -180,7 +227,7 @@ void MainWindow::on_btnRefresh_clicked()
 //    qDebug() << "返回";
     view = tab_web_view_map.value(tab_index);
 //    qDebug() << "刷新";
-     view->reload();
+    view->reload();
 }
 
 void MainWindow::on_btnBack_clicked()

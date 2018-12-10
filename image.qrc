@@ -8,5 +8,12 @@
         <file>image/back-new.png</file>
         <file>image/forward-new.png</file>
         <file>image/refresh-new.png</file>
+        <file>image/shouye.png</file>
+        <file>image/shuaxin.png</file>
+        <file>image/zuixiao.png</file>
+        <file>image/houtui.png</file>
+        <file>image/go.png</file>
+        <file>image/houtui-no.png</file>
+        <file>image/go-no.png</file>
     </qresource>
 </RCC>
