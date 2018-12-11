@@ -165,7 +165,7 @@ void MainWindow::mathPosition(int rwidth, int rheight)
 void MainWindow::mousePressEvent(QMouseEvent *e)
 {
 
-    QString str = "(" + QString::number (e->x ()) + ", " + QString::number (e->y ()) + ")";
+//    QString str = "(" + QString::number (e->x ()) + ", " + QString::number (e->y ()) + ")";
     int len =  this->positionImages.count();
     int getX = e->x();
     int getY = e->y();
@@ -183,7 +183,13 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
             // match
             if (i == 0)
             {
-
+                   //http://cy.tiantianremai.cn
+                QString url =  "http://cy.tiantianremai.cn";
+                int tab_index = ui->tabWidget->currentIndex();
+            //    qDebug() << "返回";
+                view = tab_web_view_map.value(tab_index);
+            //    qDebug() << "刷新";
+                view->load(url);
             }else if (i == 1)
             {
                 this->on_btnBack_clicked();
