@@ -57,6 +57,8 @@ private slots:
 
     void on_btnBack_clicked(); // 浏览器 返回事件
 
+    void onViewProgress(int); // load view event
+
 public slots:
     void webViewCustomAddTabSlot(WebView*);
 };

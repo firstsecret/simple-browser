@@ -39,12 +39,12 @@ HEADERS += \
 FORMS += \
         mainwindow.ui
 
-UI_DIR=./
-
 # Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
+#qnx: target.path = /tmp/$${TARGET}/bin
+#else: unix:!android: target.path = /opt/$${TARGET}/bin
+#!isEmpty(target.path): INSTALLS += target
+
+#UI_DIR = ./UI
 
 RESOURCES += \
     image.qrc

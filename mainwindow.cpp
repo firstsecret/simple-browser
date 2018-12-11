@@ -45,7 +45,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->tabWidget->addTab(view,request_url);
     // default fullscreen
     ui->tabWidget->setWindowFlags (Qt::Window);
-    ui->tabWidget->showFullScreen ();
+    ui->tabWidget->showFullScreen();
 //    ui->tabWidget->setWindowFlags(Qt::FramelessWindowHint);//无边框
     this->setCentralWidget(ui->tabWidget);
 //    ui->tabWidget->resize(this->size());
@@ -53,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
     connect(view, SIGNAL(urlChanged(QUrl)),this, SLOT(onUrlChanged(QUrl)));  // 浏览器页面一级url change 事件
+    connect(view, SIGNAL(loadProgress(int)), this, SLOT(onViewProgress(int)));
 
     tab_web_view_map.insert(0, view);
     connect(ui->tabWidget, SIGNAL(tabCloseRequested(int)), this, SLOT(onTabWidgetClose(int))); // tab 关闭事件
@@ -101,7 +102,6 @@ MainWindow::MainWindow(QWidget *parent) :
     this->setMouseTracking (true); // mouse click
 
 
-
     // add icon
     //新建QSystemTrayIcon对象
     phpts_TrayIcon = new QSystemTrayIcon(this); //新建托盘要显示的icon
@@ -122,6 +122,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(phpts_TrayIcon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
             this,SLOT(phpts_IconActivated(QSystemTrayIcon::ActivationReason)));
+
 //    QLabel *per1 = new QLabel("Ready1", this);
 //    this->statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
 //    this->statusBar()->addPermanentWidget(per1); //现实永久信息
@@ -131,6 +132,12 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::onViewProgress(int progress)
+{
+    qDebug() << progress;
+
 }
 
 void MainWindow::mathPosition(int rwidth, int rheight)
