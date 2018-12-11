@@ -32,9 +32,11 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
+    QJsonArray positionImages;
 protected:
     void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent *e);
+    void mathPosition(int rwidth,int rheight);
 private:
     Ui::MainWindow *ui;
     WebView* view;

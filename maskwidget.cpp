@@ -6,6 +6,7 @@
 
 CMaskWidget* CMaskWidget::m_pMask = nullptr;
 
+
 CMaskWidget* CMaskWidget::GetInstance()
 {
     static QMutex s_Mutex;
@@ -95,13 +96,14 @@ void CMaskWidget::paintEvent(QPaintEvent *event)
     for(int i =0; i < imageLen; i ++)
     {
         // image
-        QRect target(catSpace + middleSpace * i, 5.0, 26.0, 26.0); //建立目标矩形，该区域是显示图像的目的地
+        int mX = catSpace + middleSpace * i;
+        QRect target(mX, 5.0, 26.0, 26.0); //建立目标矩形，该区域是显示图像的目的地
+
         QRect source(0.0, 0.0, 26.0, 26.0); //建立源矩形，用来划定来自外部的源图像文件中需要显示的区域
         QJsonValue uri = bottomImages.at(i);
         QImage image(uri.toString()); //建立QImage类对象
         painter.drawImage(target, image, source);
     }
-
     // image
 //    QRect target(20.0,5.0, 26.0, 26.0); //建立目标矩形，该区域是显示图像的目的地
 //    QRect source(0.0, 0.0, 26.0, 26.0); //建立源矩形，用来划定来自外部的源图像文件中需要显示的区域

@@ -12,8 +12,8 @@
         <file>image/shuaxin.png</file>
         <file>image/zuixiao.png</file>
         <file>image/houtui.png</file>
-        <file>image/go.png</file>
         <file>image/houtui-no.png</file>
+        <file>image/go.png</file>
         <file>image/go-no.png</file>
     </qresource>
 </RCC>

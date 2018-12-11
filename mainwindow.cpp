@@ -16,7 +16,6 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-
     ui->setupUi(this);
     this->setWindowTitle("PosBrowser");
     QSettings settings;
@@ -93,7 +92,13 @@ MainWindow::MainWindow(QWidget *parent) :
     maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 64,  clientRect.width(), 64));
     maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
 
-    this->setMouseTracking (true);
+//    QJsonArray browserImages = maskWidget->getPostionImages();
+
+    // match
+    this->mathPosition(clientRect.width(), clientRect.height());
+
+
+    this->setMouseTracking (true); // mouse click
 
 //    QLabel *per1 = new QLabel("Ready1", this);
 //    this->statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
@@ -106,28 +111,91 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
+void MainWindow::mathPosition(int rwidth, int rheight)
+{
+    QJsonArray bottomImages;
+    bottomImages.append(":/image/shouye.png");
+    bottomImages.append(":/image/houtui.png");
+    bottomImages.append(":/image/zuixiao.png");
+    bottomImages.append(":/image/go.png");
+    bottomImages.append(":/image/shuaxin.png");
+    int imageLen = bottomImages.count();
+    int catSpace = rwidth * 0.2;
+    int leftSpace = rwidth - catSpace;
+    int middleSpace = (leftSpace - 26 * imageLen) / imageLen;
+
+    for(int i = 0; i < imageLen; i ++)
+    {
+       int mX = catSpace + middleSpace * i;
+       int mXMax = mX + 26;
+       QString smX = QString::number(mX);
+       smX.append("," + QString::number(mXMax));
+       int mY = rheight - 64 + 5;
+       int mYMax = mY + 26;
+       smX.append("," + QString::number(mY));
+       smX.append("," + QString::number(mYMax));
+//         qDebug() << smX;
+       this->positionImages.append(smX);
+    }
+}
+
 
 void MainWindow::mousePressEvent(QMouseEvent *e)
 {
 
     QString str = "(" + QString::number (e->x ()) + ", " + QString::number (e->y ()) + ")";
-
-    if(e->button () == Qt::LeftButton)
+    int len =  this->positionImages.count();
+    int getX = e->x();
+    int getY = e->y();
+    for(int i=0; i < len; i++)
     {
-        this->on_btnBack_clicked();
-        qDebug() << str;
+        QJsonValue str = this->positionImages.at(i);
+        QStringList list = str.toString().split(",");
+        int minX = list[0].toInt();
+        int maxX = list[1].toInt();
+        int minY = list[2].toInt();
+        int maxY = list[3].toInt();
+
+        if (getX >= minX && getX <= maxX && getY >= minY && getY <= maxY)
+        {
+            // match
+            if (i == 0)
+            {
+
+            }else if (i == 1)
+            {
+                this->on_btnBack_clicked();
+            }else if (i == 2)
+            {
+
+            }else if (i == 3)
+            {
+                this->on_btnGo_clicked();
+            }else if (i == 4)
+            {
+                this->on_btnRefresh_clicked();
+            }
+            break;
+        }
     }
-    else if(e->button () == Qt::RightButton)
-    {
+
+
+//    if(e->button () == Qt::LeftButton)
+//    {
+//        this->on_btnBack_clicked();
+//        qDebug() << str;
+//    }
+//    else if(e->button () == Qt::RightButton)
+//    {
 
 
 
-    }
-    else if(e->button () == Qt::MidButton)
-    {
+//    }
+//    else if(e->button () == Qt::MidButton)
+//    {
 
 
-    }
+//    }
 
 }
 

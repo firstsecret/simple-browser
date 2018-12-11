@@ -29,13 +29,13 @@ public:
      * \param[in]: fOpacity 透明度 取值范围0-1 1: 完全透明; 0: 完全不透明
      */
     void SetOpacity(float fOpacity);
+
 public slots:
     void mouse_click_event(int x, int y); // mouse click handle
 protected:
     virtual void paintEvent(QPaintEvent *event) override;
     virtual void showEvent(QShowEvent* event) override;
     virtual bool eventFilter(QObject *obj, QEvent *event) override;
-
 private:
     explicit CMaskWidget(QWidget* wgt = nullptr);
     ~CMaskWidget();
