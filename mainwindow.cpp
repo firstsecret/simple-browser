@@ -303,6 +303,31 @@ void MainWindow::webViewCustomAddTabSlot(WebView* view)
     view->show();
     connect(view,SIGNAL(titleChanged(QString)),view,SLOT(sltTitleChange(QString))); // 标题改变事件
     connect(view, SIGNAL(WebViewUpdateSignal(WebView*)),this,SLOT(webViewCustomAddTabSlot(WebView*)));
+
+    QStringList qList = view->url().query().split('&');
+
+    QList<QString>::Iterator it = qList.begin(),itend = qList.end();
+    int match_times = 0;
+    for (int i = 0;it != itend; it++,i++){
+         QString text = *it;
+         QStringList kv = text.split("=");
+//         qDebug() << kv;
+//         qDebug() << kv[0];
+         if((kv[0] == "c" && kv[1] == "site") ||
+                 (kv[0] == "a" && kv[1] == "onefive") ||
+                 (kv[0] == "op" && kv[1] == "display") ||
+                 (kv[0] == "do" && kv[1] == "intelligence_pospage") ||
+                 (kv[0] == "m" && kv[1] == "weisrc_dish") ){
+            match_times++;
+         }
+     }
+
+    if(match_times == 5){
+        // fullscreen
+        ui->tabWidget->setWindowFlags (Qt::Window);
+        ui->tabWidget->showFullScreen ();
+    }
+
     tab_web_view_map.insert(get_index, view);
 //    qDebug() << get_index + 1;
     ui->tabWidget->setCurrentIndex(get_index);

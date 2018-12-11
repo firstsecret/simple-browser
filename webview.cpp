@@ -43,6 +43,7 @@ void WebView::linkHovered(const QString &url)
     if(!url.isEmpty()){
         new_web_view_url = url;
         now_url=url;
+//        qDebug() << now_url;
     }
 
 //    qDebug() << "link url dddd:";
