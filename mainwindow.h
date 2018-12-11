@@ -11,6 +11,9 @@
 #include "maskwidget.h"
 #include <QDesktopWidget>
 #include <QMouseEvent>
+#include <QSystemTrayIcon>
+#include <QAction>
+#include <QMenu>
 
 //extern WebView *web_view;
 //extern QTabWidget *web_tab_views;
@@ -40,6 +43,9 @@ protected:
 private:
     Ui::MainWindow *ui;
     WebView* view;
+    QSystemTrayIcon *phpts_TrayIcon; //托盘栏
+    QAction *phpts_TrayRestoreAction;
+    QMenu *phpts_TrayIconMenu;
 private slots:
     void handleMessage(const QString &topic); // 外部url改变事件
     void on_btnGo_clicked();  // 浏览器 前进事件

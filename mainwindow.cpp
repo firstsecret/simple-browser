@@ -100,6 +100,28 @@ MainWindow::MainWindow(QWidget *parent) :
 
     this->setMouseTracking (true); // mouse click
 
+
+
+    // add icon
+    //新建QSystemTrayIcon对象
+    phpts_TrayIcon = new QSystemTrayIcon(this); //新建托盘要显示的icon
+    QIcon icon = QIcon(":/image/posbrowser.png"); //将icon设到QSystemTrayIcon对象中
+    phpts_TrayIcon->setIcon(icon);
+    //当鼠标移动到托盘上的图标时，会显示此处设置的内容
+    phpts_TrayIcon->setToolTip(QObject::trUtf8("PosBrowser"));
+    //在系统托盘显示此对象
+    phpts_TrayIcon->show();
+
+    phpts_TrayRestoreAction = new QAction("打开PosBrowser", this);
+    connect(phpts_TrayRestoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
+
+    phpts_TrayIconMenu = new QMenu(this);
+    phpts_TrayIconMenu->addAction(phpts_TrayRestoreAction);
+    phpts_TrayIconMenu->addSeparator();
+    phpts_TrayIcon->setContextMenu(phpts_TrayIconMenu);
+
+    connect(phpts_TrayIcon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
+            this,SLOT(phpts_IconActivated(QSystemTrayIcon::ActivationReason)));
 //    QLabel *per1 = new QLabel("Ready1", this);
 //    this->statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
 //    this->statusBar()->addPermanentWidget(per1); //现实永久信息
@@ -165,8 +187,10 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
             }else if (i == 1)
             {
                 this->on_btnBack_clicked();
+
             }else if (i == 2)
             {
+                this->hide();
 
             }else if (i == 3)
             {
