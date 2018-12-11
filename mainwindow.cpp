@@ -136,8 +136,31 @@ MainWindow::~MainWindow()
 
 void MainWindow::onViewProgress(int progress)
 {
-    qDebug() << progress;
+//    qDebug() << progress;
 
+}
+
+void MainWindow::phpts_IconActivated(QSystemTrayIcon::ActivationReason phpts_Reason)
+{
+    switch (phpts_Reason)
+    {
+    case QSystemTrayIcon::Trigger:
+        //鼠标单击
+        this->showNormal();
+        //phpts_TrayIcon->showMessage("title","你单击了"); //后面两个默认参数
+        break;
+    case QSystemTrayIcon::DoubleClick:
+        //鼠标双击
+        this->showNormal();
+        break;
+    case QSystemTrayIcon::MiddleClick:
+        //鼠标中键
+        this->showNormal();
+        break;
+    default:
+        this->showNormal();
+        break;
+    }
 }
 
 void MainWindow::mathPosition(int rwidth, int rheight)

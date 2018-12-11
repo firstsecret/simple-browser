@@ -59,6 +59,7 @@ private slots:
 
     void onViewProgress(int); // load view event
 
+    void phpts_IconActivated(QSystemTrayIcon::ActivationReason phpts_Reason); // 托盘栏激活
 public slots:
     void webViewCustomAddTabSlot(WebView*);
 };
