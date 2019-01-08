@@ -76,8 +76,22 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     else
     {
-        qDebug()<<"快捷键已占用";
+        qDebug()<<"alt + Q 快捷键已占用";
     }
+
+//    if(shortcut->setShortcut(QKeySequence("Esc")))
+//    {
+//        connect(shortcut, &QxtGlobalShortcut::activated,
+//            [=]() {
+//            if (ui->tabWidget->isFullScreen()){
+//                ui->tabWidget->setWindowFlags (Qt::SubWindow);
+//                ui->tabWidget->showNormal ();
+//            } else {
+//                ui->tabWidget->setWindowFlags (Qt::Window);
+//                ui->tabWidget->showFullScreen ();
+//            }
+//        });
+//    }
 
     QDesktopWidget* desktopWidget = QApplication::desktop();
     QRect clientRect = desktopWidget->availableGeometry();    //用户可用窗口大小
