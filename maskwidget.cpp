@@ -97,7 +97,7 @@ void CMaskWidget::paintEvent(QPaintEvent *event)
     {
         // image
         int mX = catSpace + middleSpace * i;
-        QRect target(mX, 5.0, 26.0, 26.0); //建立目标矩形，该区域是显示图像的目的地
+        QRect target(mX, 8.0, 26.0, 26.0); //建立目标矩形，该区域是显示图像的目的地
 
         QRect source(0.0, 0.0, 26.0, 26.0); //建立源矩形，用来划定来自外部的源图像文件中需要显示的区域
         QJsonValue uri = bottomImages.at(i);

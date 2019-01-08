@@ -104,7 +104,7 @@ MainWindow::MainWindow(QWidget *parent) :
     maskWidget->setParent(this);
 //    qDebug() << this->geometry();
 //    maskWidget->SetMainWidget(this);
-    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 64,  clientRect.width(), 64));
+    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 84,  clientRect.width(), 84));
     maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
 
 //    QJsonArray browserImages = maskWidget->getPostionImages();
@@ -129,9 +129,13 @@ MainWindow::MainWindow(QWidget *parent) :
     phpts_TrayRestoreAction = new QAction("打开PosBrowser", this);
     connect(phpts_TrayRestoreAction, SIGNAL(triggered()), this, SLOT(showNormal()));
 
+    phpts_TrayQuitAction = new QAction(tr("关闭PosBrowser"), this);
+    connect(phpts_TrayQuitAction, SIGNAL(triggered()), qApp, SLOT(quit())); //关闭应用，qApp对应的是程序全局唯一指针
+
     phpts_TrayIconMenu = new QMenu(this);
     phpts_TrayIconMenu->addAction(phpts_TrayRestoreAction);
     phpts_TrayIconMenu->addSeparator();
+    phpts_TrayIconMenu->addAction(phpts_TrayQuitAction);
     phpts_TrayIcon->setContextMenu(phpts_TrayIconMenu);
 
     connect(phpts_TrayIcon,SIGNAL(activated(QSystemTrayIcon::ActivationReason)),
@@ -196,7 +200,7 @@ void MainWindow::mathPosition(int rwidth, int rheight)
        int mXMax = mX + 26;
        QString smX = QString::number(mX);
        smX.append("," + QString::number(mXMax));
-       int mY = rheight - 64 + 5;
+       int mY = rheight - 84 + 8; // - black maskwidget + top
        int mYMax = mY + 26;
        smX.append("," + QString::number(mY));
        smX.append("," + QString::number(mYMax));
