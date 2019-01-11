@@ -13,6 +13,7 @@ QWebEngineView *WebView::createWindow(QWebEnginePage::WebWindowType)
 {
 //    Q_UNUSED(type)
 //    qDebug() << "初始化浏览器";
+
     if(now_url.isEmpty()){
         return 0;
     }
@@ -39,7 +40,6 @@ void sendWebViewUpdate(WebView*)
 
 void WebView::linkHovered(const QString &url)
 {
-
     if(!url.isEmpty()){
         new_web_view_url = url;
         now_url=url;

@@ -44,10 +44,12 @@ MainWindow::MainWindow(QWidget *parent) :
 //    qDebug() << view->url();
     ui->tabWidget->addTab(view,request_url);
     // default fullscreen
-    ui->tabWidget->setWindowFlags (Qt::Window);
-    ui->tabWidget->showFullScreen();
+//    ui->tabWidget->setWindowFlags (Qt::Window);
+//    ui->tabWidget->showFullScreen();
+    ui->tabWidget->showNormal();
 //    ui->tabWidget->setWindowFlags(Qt::FramelessWindowHint);//无边框
-    this->setCentralWidget(ui->tabWidget);
+    // full screen
+//    this->setCentralWidget(ui->tabWidget);
 //    ui->tabWidget->resize(this->size());
 //    ui->tabWidget->setContentsMargins(0,0,0,0);
 
@@ -73,8 +75,7 @@ MainWindow::MainWindow(QWidget *parent) :
                ui->tabWidget->showFullScreen ();
            }
        });
-    }
-    else
+    } else
     {
         qDebug()<<"alt + Q 快捷键已占用";
     }
@@ -104,7 +105,10 @@ MainWindow::MainWindow(QWidget *parent) :
     maskWidget->setParent(this);
 //    qDebug() << this->geometry();
 //    maskWidget->SetMainWidget(this);
-    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 84,  clientRect.width(), 84));
+//    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 84,  clientRect.width(), 84));
+//    int buttonOrTopHeight = clientRect.height(); // on buttom
+    int buttonOrTopHeight = 0;
+    maskWidget->SetCustomMainWidget(QRect(0, buttonOrTopHeight,  clientRect.width(), 36));
     maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
 
 //    QJsonArray browserImages = maskWidget->getPostionImages();
@@ -193,15 +197,29 @@ void MainWindow::mathPosition(int rwidth, int rheight)
     int catSpace = rwidth * 0.2;
     int leftSpace = rwidth - catSpace;
     int middleSpace = (leftSpace - 26 * imageLen) / imageLen;
-
+    // onbuttom use this
+//    for(int i = 0; i < imageLen; i ++)
+//    {
+//       int mX = catSpace + middleSpace * i;
+//       int mXMax = mX + 26;
+//       QString smX = QString::number(mX);
+//       smX.append("," + QString::number(mXMax));
+//       int mY = rheight - 84 + 8; // - black maskwidget + top
+//       int mYMax = mY + 26;
+//       smX.append("," + QString::number(mY));
+//       smX.append("," + QString::number(mYMax));
+////         qDebug() << smX;
+//       this->positionImages.append(smX);
+//    }
+    // on top
     for(int i = 0; i < imageLen; i ++)
     {
        int mX = catSpace + middleSpace * i;
        int mXMax = mX + 26;
        QString smX = QString::number(mX);
        smX.append("," + QString::number(mXMax));
-       int mY = rheight - 84 + 8; // - black maskwidget + top
-       int mYMax = mY + 26;
+       int mY = 0; // - black maskwidget + top
+       int mYMax = 36;
        smX.append("," + QString::number(mY));
        smX.append("," + QString::number(mYMax));
 //         qDebug() << smX;
@@ -221,11 +239,18 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
     {
         QJsonValue str = this->positionImages.at(i);
         QStringList list = str.toString().split(",");
-        int minX = list[0].toInt();
-        int maxX = list[1].toInt();
+        int minX = list[0].toInt() - 5; // bigger
+        int maxX = list[1].toInt() + 5; // bigger
         int minY = list[2].toInt();
-        int maxY = list[3].toInt();
-
+        int maxY = list[3].toInt() + 5; // bigger
+//        qDebug() << "ttt";
+//        qDebug() << minX;
+//        qDebug() << maxX;
+//        qDebug() << minY;
+//        qDebug() << maxY;
+//        qDebug() << "end";
+//        qDebug() << getX;
+//        qDebug() << getY;
         if (getX >= minX && getX <= maxX && getY >= minY && getY <= maxY)
         {
             // match
@@ -251,6 +276,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e)
                 this->on_btnGo_clicked();
             }else if (i == 4)
             {
+
                 this->on_btnRefresh_clicked();
             }
             break;
