@@ -21,7 +21,7 @@
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QGridLayout" name="gridLayout">
-    <item row="1" column="0" colspan="2">
+    <item row="1" column="0" colspan="4">
      <widget class="QTabWidget" name="tabWidget">
       <property name="autoFillBackground">
        <bool>false</bool>
@@ -45,22 +45,52 @@
       </widget>
      </widget>
     </item>
-    <item row="0" column="0" colspan="2">
+    <item row="0" column="0">
      <widget class="QPushButton" name="pushButton">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>16</height>
-       </size>
-      </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
-        <height>16</height>
+        <width>16</width>
+        <height>32</height>
        </size>
       </property>
+      <property name="styleSheet">
+       <string notr="true">
+border-image: url(:/image/back-new.png);</string>
+      </property>
       <property name="text">
-       <string>fdsfdfdsd</string>
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="maximumSize">
+       <size>
+        <width>16</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/image/forward-new.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2">
+     <widget class="QPushButton" name="pushButton_3">
+      <property name="maximumSize">
+       <size>
+        <width>16</width>
+        <height>32</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/image/refresh-new.png);</string>
+      </property>
+      <property name="text">
+       <string/>
       </property>
      </widget>
     </item>

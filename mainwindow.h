@@ -40,6 +40,7 @@ protected:
     void resizeEvent(QResizeEvent *);
     void mousePressEvent(QMouseEvent *e);
     void mathPosition(int rwidth,int rheight);
+    void cmaskMake(QRect clientRect);
 private:
     Ui::MainWindow *ui;
     WebView* view;
@@ -61,6 +62,12 @@ private slots:
     void onViewProgress(int); // load view event
 
     void phpts_IconActivated(QSystemTrayIcon::ActivationReason phpts_Reason); // 托盘栏激活
+    void on_pushButton_clicked();
+
+    void on_pushButton_2_clicked();
+
+    void on_pushButton_3_clicked();
+
 public slots:
     void webViewCustomAddTabSlot(WebView*);
 };

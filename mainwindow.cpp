@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    this->setWindowTitle("PosBrowser");
+    this->setWindowTitle("天天热卖智慧收银浏览器");
     QSettings settings;
 //    qDebug() << "get:" + settings.value("request_url").toString();
     QString request_url = settings.value("request_url").toString();
@@ -99,27 +99,7 @@ MainWindow::MainWindow(QWidget *parent) :
 //    QRect applicationRect = desktopWidget->screenGeometry();  //应用程序可用窗口大小
 //    qDebug() << clientRect;
 //    qDebug() << applicationRect;
-
-    //! 添加遮罩
-    CMaskWidget* maskWidget = CMaskWidget::GetInstance();
-    maskWidget->setParent(this);
-//    qDebug() << this->geometry();
-//    maskWidget->SetMainWidget(this);
-//    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 84,  clientRect.width(), 84));
-//    int buttonOrTopHeight = clientRect.height(); // on buttom
-    int buttonOrTopHeight = 0;
-    maskWidget->SetCustomMainWidget(QRect(0, buttonOrTopHeight,  clientRect.width(), 36));
-    maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
-
-//    QJsonArray browserImages = maskWidget->getPostionImages();
-
-    // match
-    this->mathPosition(clientRect.width(), clientRect.height());
-
-
-    this->setMouseTracking (true); // mouse click
-
-
+//    this->cmaskMake(clientRect);
     // add icon
     //新建QSystemTrayIcon对象
     phpts_TrayIcon = new QSystemTrayIcon(this); //新建托盘要显示的icon
@@ -149,6 +129,28 @@ MainWindow::MainWindow(QWidget *parent) :
 //    this->statusBar()->setStyleSheet(QString("QStatusBar::item{border: 0px}"));
 //    this->statusBar()->addPermanentWidget(per1); //现实永久信息
 //    connect(view->page(),&QWebEnginePage::linkHovered, this, &WebView::linkHovered));
+}
+
+void MainWindow::cmaskMake(QRect clientRect)
+{
+    //! 添加遮罩
+    CMaskWidget* maskWidget = CMaskWidget::GetInstance();
+    maskWidget->setParent(this);
+//    qDebug() << this->geometry();
+//    maskWidget->SetMainWidget(this);
+//    maskWidget->SetCustomMainWidget(QRect(0, clientRect.height() - 84,  clientRect.width(), 84));
+//    int buttonOrTopHeight = clientRect.height(); // on buttom
+    int buttonOrTopHeight = 0;
+    maskWidget->SetCustomMainWidget(QRect(0, buttonOrTopHeight,  clientRect.width(), 36));
+    maskWidget->SetDialogNames(QStringList() << "CBonusForNewUserDlg");
+
+//    QJsonArray browserImages = maskWidget->getPostionImages();
+
+    // match
+    this->mathPosition(clientRect.width(), clientRect.height());
+
+
+    this->setMouseTracking (true); // mouse click
 }
 
 MainWindow::~MainWindow()
@@ -309,7 +311,7 @@ void MainWindow::onCurrentChanged(int index)
 {
 //    qDebug() << index;
     QString tab_label = ui->tabWidget->tabText(index);
-    this->setWindowTitle(tab_label);
+//    this->setWindowTitle(tab_label);
 }
 
 void MainWindow::onLinkHovered(QString url)
@@ -434,4 +436,19 @@ void MainWindow::on_btnBack_clicked()
     view = tab_web_view_map.value(tab_index);
 
     view->back();
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    this->on_btnBack_clicked();
+}
+
+void MainWindow::on_pushButton_2_clicked()
+{
+    this->on_btnGo_clicked();
+}
+
+void MainWindow::on_pushButton_3_clicked()
+{
+    this->on_btnRefresh_clicked();
 }
